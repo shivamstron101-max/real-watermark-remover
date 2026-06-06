@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+    title="Image Watermark Remover | Clean Your Photos with AI"
+    description="Remove watermarks, logos, and text from your images instantly. Our AI ensures high-quality restoration without blurring."
+>
+    <section class="relative py-24 overflow-hidden bg-white">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-[#007cf0] to-[#00dfd8] blur-[120px]"></div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-gradient-to-br from-[#7928ca] to-[#ff0080] blur-[120px]"></div>
+        </div>
+
+        <div class="max-w-[1400px] mx-auto px-6 relative">
+            <div class="max-w-3xl mx-auto text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d3e5ff] text-[#0070f3] text-xs font-mono font-medium mb-6">
+                    AI-POWERED IMAGE RESTORATION
+                </div>
+                <h1 class="text-5xl md:text-6xl font-semibold tracking-tighter mb-6">
+                    Remove watermarks from <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#007cf0] to-[#00dfd8]">any image</span>.
+                </h1>
+                <p class="text-xl text-[#4d4d4d] leading-relaxed">
+                    Upload your photo and let our neural networks do the magic. Clean logos, text, and stamps in seconds with pixel-perfect precision.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white border border-[#ebebeb] rounded-2xl shadow-xl overflow-hidden p-2">
+                    <div class="border-2 border-dashed border-[#ebebeb] rounded-xl p-12 md:p-24 text-center hover:border-[#a1a1a1] transition-colors group cursor-pointer">
+                        <div class="w-16 h-16 bg-[#fafafa] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#171717]"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <h2 class="text-xl font-medium mb-2">Drop your image here</h2>
+                        <p class="text-[#888888] mb-8">Supports JPG, PNG, WEBP up to 10MB</p>
+                        <button class="bg-[#171717] text-white px-8 py-3 rounded-full font-medium hover:bg-black transition-colors shadow-lg shadow-black/10">
+                            Select Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24">
+                <div class="p-6 bg-[#fafafa] border border-[#ebebeb] rounded-xl">
+                    <h3 class="font-semibold mb-3">High Quality</h3>
+                    <p class="text-sm text-[#4d4d4d]">Our AI fills in the background intelligently, maintaining original resolution and detail.</p>
+                </div>
+                <div class="p-6 bg-[#fafafa] border border-[#ebebeb] rounded-xl">
+                    <h3 class="font-semibold mb-3">Fast Processing</h3>
+                    <p class="text-sm text-[#4d4d4d]">Get your results in under 5 seconds. No more waiting for manual edits.</p>
+                </div>
+                <div class="p-6 bg-[#fafafa] border border-[#ebebeb] rounded-xl">
+                    <h3 class="font-semibold mb-3">Privacy First</h3>
+                    <p class="text-sm text-[#4d4d4d]">Your files are processed securely and deleted automatically from our servers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-[#fafafa] border-t border-[#ebebeb]">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <h2 class="text-3xl font-semibold tracking-tight mb-12 text-center">How it works</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {[1, 2, 3, 4].map((step) => (
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-[#171717] text-white flex items-center justify-center mx-auto mb-4 font-mono text-sm">{step}</div>
+                        <h4 class="font-medium mb-2">{step === 1 ? 'Upload' : step === 2 ? 'Detect' : step === 3 ? 'Remove' : 'Download'}</h4>
+                        <p class="text-sm text-[#888888]">
+                            {step === 1 ? 'Select your photo with the watermark.' : 
+                             step === 2 ? 'AI automatically identifies the watermark area.' : 
+                             step === 3 ? 'Our engine replaces pixels with natural context.' : 
+                             'Get your clean, watermark-free image.'}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</Layout>

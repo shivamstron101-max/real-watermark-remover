@@ -1,11 +1,394 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+    <section class="relative pt-32 pb-48 overflow-hidden bg-white">
+        <!-- Vercel Mesh Gradient Background -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[radial-gradient(circle,#007cf0,transparent_70%)] opacity-[0.15] blur-[100px]"></div>
+            <div class="absolute top-[10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-[radial-gradient(circle,#7928ca,transparent_70%)] opacity-[0.15] blur-[100px]"></div>
+            <div class="absolute bottom-[-20%] left-[20%] w-[60%] h-[60%] rounded-full bg-[radial-gradient(circle,#ff4d4d,transparent_70%)] opacity-[0.15] blur-[100px]"></div>
+            <div class="absolute bottom-0 right-[10%] w-[40%] h-[40%] rounded-full bg-[radial-gradient(circle,#f9cb28,transparent_70%)] opacity-[0.15] blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10 text-center">
+            <a href="#" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#ebebeb] bg-white hover:border-[#a1a1a1] transition-all text-sm font-medium mb-8 group">
+                <span class="inline-block w-2 h-2 rounded-full bg-[#50e3c2] animate-pulse"></span>
+                New: AI Image Object Remover is live
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+            </a>
+            
+            <h1 class="text-6xl md:text-8xl font-semibold tracking-tighter mb-8 leading-[1.1] max-w-5xl mx-auto text-[#171717]">
+                Watermark removal <br />
+                <span class="text-[#171717]">for the modern web.</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-[#4d4d4d] max-w-2xl mx-auto mb-12 leading-relaxed">
+                Experience the world's most advanced AI engine for cleaning images. Professional results, zero friction.
+            </p>
+            
+        <!-- Remove these debug buttons to prevent console errors -->
+        <!-- <div class="flex items-center justify-center gap-4 mb-12">
+            <button type="button" id="ping-btn" class="text-xs text-[#888888] hover:text-[#171717] font-medium border border-[#ebebeb] px-3 py-1 rounded-full transition-colors">
+                Ping Backend
+            </button>
+            <button type="button" id="test-post-btn" class="text-xs text-[#888888] hover:text-[#171717] font-medium border border-[#ebebeb] px-3 py-1 rounded-full transition-colors">
+                Test POST
+            </button>
+            <span id="ping-status" class="text-xs font-mono"></span>
+        </div> -->
+
+            <div class="max-w-4xl mx-auto mb-12">
+                <form id="landing-upload-form" class="bg-white border border-[#ebebeb] rounded-2xl shadow-2xl shadow-black/5 overflow-hidden p-2 text-left">
+                    <div id="drop-zone" class="border-2 border-dashed border-[#ebebeb] rounded-xl p-12 md:p-20 text-center hover:border-[#171717] transition-colors group cursor-pointer relative">
+                        <input type="file" id="image-input" name="image_file" accept="image/*" class="hidden" />
+                        
+                        <div id="upload-ui">
+                            <div class="w-16 h-16 bg-[#fafafa] rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#171717]"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                            </div>
+                            <h2 class="text-2xl font-semibold mb-2 text-[#171717]">Upload your image</h2>
+                            <p class="text-[#888888] mb-8 text-lg">Click to browse or drag and drop JPG, PNG, WEBP</p>
+                            <button type="button" id="select-image-btn" class="bg-[#171717] text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-black transition-all shadow-xl shadow-black/10">
+                                Select Image
+                            </button>
+                        </div>
+
+                        <div id="file-selected-ui" class="hidden text-center">
+                            <h3 id="selected-file-name" class="text-xl font-medium mb-6 truncate max-w-md mx-auto text-[#171717]">filename.jpg</h3>
+                            
+                            <!-- Image Selector Interface -->
+                            <div class="relative inline-block mx-auto mb-8 bg-black rounded-lg overflow-hidden group/canvas cursor-crosshair">
+                                <img id="preview-image" class="max-w-full block max-h-[60vh] object-contain" />
+                                <canvas id="selection-canvas" class="absolute inset-0 z-20"></canvas>
+                                <div id="canvas-hint" class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 transition-opacity">
+                                    <div class="bg-black/60 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm">Draw a box over the watermark</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-center gap-6 mb-8">
+                                <div class="flex items-center gap-2">
+                                    <input type="checkbox" id="debug-mode" class="w-4 h-4 rounded border-[#ebebeb] text-[#171717] focus:ring-[#171717] cursor-pointer" />
+                                    <label for="debug-mode" class="text-sm text-[#4d4d4d] font-medium cursor-pointer">Verify area (Draw Red Box)</label>
+                                </div>
+                                <button type="button" id="clear-selection" class="text-sm text-[#888888] hover:text-[#ee0000] font-medium transition-colors">Clear Selection</button>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button type="submit" id="submit-btn" class="bg-[#171717] text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-black transition-all shadow-xl shadow-black/10 flex items-center justify-center min-w-[220px]">
+                                    <span id="btn-text">Remove Selected</span>
+                                    <div id="loader" class="hidden w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin ml-3"></div>
+                                </button>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <button type="button" id="change-file" class="text-[#4d4d4d] hover:text-[#171717] text-sm font-medium">Change Image</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div id="result-container" class="mt-12 hidden">
+                    <div class="bg-white border border-[#ebebeb] rounded-2xl shadow-2xl overflow-hidden p-2 text-center">
+                        <img id="output-image" class="w-full rounded-xl bg-black max-h-[60vh] object-contain mx-auto" />
+                    </div>
+                    <div class="mt-8 flex justify-center gap-4">
+                        <a id="download-link" href="#" download="cleaned_image.jpg" class="bg-[#171717] text-white px-10 py-4 rounded-full text-lg font-medium hover:bg-black transition-all shadow-xl shadow-black/10">
+                            Download Result
+                        </a>
+                        <button id="reset-form" class="bg-white border border-[#ebebeb] text-[#171717] px-10 py-4 rounded-full text-lg font-medium hover:bg-[#fafafa] transition-all">
+                            Process Another
+                        </button>
+                    </div>
+                </div>
+                
+                <p id="error-msg" class="text-red-500 mt-4 font-medium hidden text-center"></p>
+            </div>
+        </div>
+    </section>
+
+    <script is:inline>
+        const PROXY_URL = '/api/proxy';
+        
+        const form = document.getElementById('landing-upload-form');
+        const fileInput = document.getElementById('image-input');
+        const dropZone = document.getElementById('drop-zone');
+        const uploadUI = document.getElementById('upload-ui');
+        const selectedUI = document.getElementById('file-selected-ui');
+        const fileNameLabel = document.getElementById('selected-file-name');
+        
+        const previewImage = document.getElementById('preview-image');
+        const canvas = document.getElementById('selection-canvas');
+        const ctx = canvas.getContext('2d');
+        const clearBtn = document.getElementById('clear-selection');
+        const canvasHint = document.getElementById('canvas-hint');
+        
+        const submitBtn = document.getElementById('submit-btn');
+        const btnText = document.getElementById('btn-text');
+        const loader = document.getElementById('loader');
+        
+        const resultContainer = document.getElementById('result-container');
+        const outputImage = document.getElementById('output-image');
+        const downloadLink = document.getElementById('download-link');
+        const resetBtn = document.getElementById('reset-form');
+        const errorMsg = document.getElementById('error-msg');
+        const debugCheckbox = document.getElementById('debug-mode');
+
+        let selectedFile = null;
+        let isDrawing = false;
+        let startX, startY;
+        let rect = { x: 0, y: 0, w: 0, h: 0 };
+
+        // File Selection Logic
+        dropZone.onclick = (e) => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && !selectedFile) {
+                fileInput.click();
+            }
+        };
+
+        fileInput.onchange = (e) => {
+            if (e.target.files[0]) handleFileSelect(e.target.files[0]);
+        };
+
+        function resizeCanvas() {
+            if (!selectedFile) return;
+            
+            const imgWidth = previewImage.naturalWidth;
+            const imgHeight = previewImage.naturalHeight;
+            const containerWidth = previewImage.clientWidth;
+            const containerHeight = previewImage.clientHeight;
+
+            if (!imgWidth || !imgHeight || !containerWidth || !containerHeight) return;
+
+            const imgRatio = imgWidth / imgHeight;
+            const containerRatio = containerWidth / containerHeight;
+
+            let displayWidth, displayHeight;
+
+            if (imgRatio > containerRatio) {
+                // Image is wider than the container
+                displayWidth = containerWidth;
+                displayHeight = containerWidth / imgRatio;
+            } else {
+                // Image is taller than the container
+                displayHeight = containerHeight;
+                displayWidth = containerHeight * imgRatio;
+            }
+
+            // Set canvas resolution to match its CSS size (1:1 mapping)
+            canvas.width = displayWidth;
+            canvas.height = displayHeight;
+
+            // Resize and reposition canvas over the video content precisely
+            canvas.style.width = `${displayWidth}px`;
+            canvas.style.height = `${displayHeight}px`;
+            canvas.style.left = `${(containerWidth - displayWidth) / 2}px`;
+            canvas.style.top = `${(containerHeight - displayHeight) / 2}px`;
+
+            draw();
+        }
+
+        function handleFileSelect(file) {
+            selectedFile = file;
+            fileNameLabel.textContent = file.name;
+            uploadUI.classList.add('hidden');
+            selectedUI.classList.remove('hidden');
+            
+            const url = URL.createObjectURL(file);
+            previewImage.src = url;
+            
+            previewImage.onload = () => {
+                resizeCanvas();
+                rect = { x: 0, y: 0, w: 0, h: 0 };
+                draw();
+            };
+        }
+
+        // Handle window resize to keep canvas aligned
+        window.onresize = () => {
+            if (selectedFile) {
+                resizeCanvas();
+            }
+        };
+
+        // Canvas Interaction
+        canvas.onmousedown = (e) => {
+            isDrawing = true;
+            canvasHint.style.opacity = '0';
+            const bounding = canvas.getBoundingClientRect();
+            startX = e.clientX - bounding.left;
+            startY = e.clientY - bounding.top;
+        };
+
+        canvas.onmousemove = (e) => {
+            if (!isDrawing) return;
+            const bounding = canvas.getBoundingClientRect();
+            const currentX = e.clientX - bounding.left;
+            const currentY = e.clientY - bounding.top;
+            
+            rect.x = Math.min(startX, currentX);
+            rect.y = Math.min(startY, currentY);
+            rect.w = Math.abs(startX - currentX);
+            rect.h = Math.abs(startY - currentY);
+            draw();
+        };
+
+        window.onmouseup = () => { isDrawing = false; };
+
+        clearBtn.onclick = () => {
+            rect = { x: 0, y: 0, w: 0, h: 0 };
+            canvasHint.style.opacity = '1';
+            draw();
+        };
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (rect.w > 0 && rect.h > 0) {
+                // Outer fade
+                ctx.fillStyle = 'rgba(0,0,0,0.4)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(rect.x, rect.y, rect.w, rect.h);
+                
+                // Border
+                ctx.strokeStyle = '#007cf0';
+                ctx.setLineDash([6, 3]);
+                ctx.lineWidth = 2;
+                ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+                
+                // Corner Indicators
+                ctx.setLineDash([]);
+                ctx.fillStyle = '#007cf0';
+                const s = 8;
+                ctx.fillRect(rect.x-2, rect.y-2, s, s);
+                ctx.fillRect(rect.x+rect.w-s+2, rect.y-2, s, s);
+                ctx.fillRect(rect.x-2, rect.y+rect.h-s+2, s, s);
+                ctx.fillRect(rect.x+rect.w-s+2, rect.y+rect.h-s+2, s, s);
+            }
+        }
+
+        // Form Submission Logic
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            await processImage();
+        };
+
+        async function processImage() {
+            if (!selectedFile) {
+                alert("Please select an image file first.");
+                return;
+            }
+
+            if (rect.w === 0) {
+                alert("Please draw a box over the object or watermark first!");
+                return;
+            }
+
+            submitBtn.disabled = true;
+            btnText.textContent = 'Processing...';
+            loader.classList.remove('hidden');
+            errorMsg.classList.add('hidden');
+
+            const formData = new FormData();
+            formData.append('image_file', selectedFile);
+            
+            const autoDetect = false;
+            if (autoDetect) {
+                formData.append('auto', 'true');
+            } else {
+                // Map canvas coordinates to original video resolution
+                const scaleX = previewImage.naturalWidth / canvas.width;
+                const scaleY = previewImage.naturalHeight / canvas.height;
+                formData.append('x', Math.round(rect.x * scaleX));
+                formData.append('y', Math.round(rect.y * scaleY));
+                formData.append('width', Math.round(rect.w * scaleX));
+                formData.append('height', Math.round(rect.h * scaleY));
+            }
+            
+            formData.append('debug', debugCheckbox.checked ? 'true' : 'false');
+
+            console.log('Starting fetch to:', PROXY_URL);
+
+            try {
+                const response = await fetch(PROXY_URL, { 
+                    method: 'POST', 
+                    body: formData,
+                });
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || `Processing failed with status ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+                outputImage.src = url;
+                downloadLink.href = url;
+                form.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+            } catch (err) {
+                console.error('Process error:', err);
+                errorMsg.textContent = 'Error: ' + err.message;
+                errorMsg.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.textContent = 'Remove Selected';
+                loader.classList.add('hidden');
+            }
+        }
+
+        // Reset Logic
+        resetBtn.onclick = () => {
+            selectedFile = null;
+            fileInput.value = '';
+            form.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+            uploadUI.classList.remove('hidden');
+            selectedUI.classList.add('hidden');
+            previewImage.src = '';
+            outputImage.src = '';
+            canvasHint.style.opacity = '1';
+        };
+
+        document.getElementById('change-file').onclick = () => fileInput.click();
+        document.getElementById('select-image-btn').onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            fileInput.click();
+        };
+
+        // // Ping Debug Tool
+        // const pingBtn = document.getElementById('ping-btn');
+        // const testPostBtn = document.getElementById('test-post-btn');
+        // const pingStatus = document.getElementById('ping-status');
+        // 
+        // pingBtn.onclick = async () => {
+        //     pingStatus.textContent = '⏳ Pinging...';
+        //     pingStatus.style.color = '#888888';
+        //     try {
+        //         const res = await fetch('/api/proxy/ping');
+        //         const data = await res.json();
+        //         pingStatus.textContent = `✅ Connected: ${JSON.stringify(data)}`;
+        //         pingStatus.style.color = '#0070f3';
+        //     } catch (err) {
+        //         console.error('Ping failed:', err);
+        //         pingStatus.textContent = `❌ Failed: ${err.message}`;
+        //         pingStatus.style.color = '#ee0000';
+        //     }
+        // };
+        // 
+        // testPostBtn.onclick = async () => {
+        //     pingStatus.textContent = '⏳ Pinging...';
+        //     pingStatus.style.color = '#888888';
+        //     try {
+        //         const res = await fetch('/api/proxy/test', { method: 'POST' });
+        //         const data = await res.json();
+        //         pingStatus.textContent = `✅ POST OK: ${JSON.stringify(data)}`;
+        //         pingStatus.style.color = '#0070f3';
+        //     } catch (err) {
+        //         console.error('Test POST failed:', err);
+        //         pingStatus.textContent = `❌ POST Failed: ${err.message}`;
+        //         pingStatus.style.color = '#ee0000';
+        //     }
+        // };
+    </script>
 </Layout>

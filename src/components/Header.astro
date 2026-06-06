@@ -1,0 +1,21 @@
+---
+const { class: className } = Astro.props;
+---
+<nav class:list={["flex items-center justify-between px-6 border-b border-[#ebebeb] bg-white/80 backdrop-blur-md sticky top-0 z-50 h-16", className]}>
+  <div class="flex items-center gap-8">
+    <a href="/" class="flex items-center gap-2 font-bold text-[#171717] tracking-tight">
+      <svg width="24" height="24" viewBox="0 0 76 65" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M37.5274 0L75.0548 65H0L37.5274 0Z" fill="#171717"/>
+      </svg>
+      <span>Real Watermark Remover</span>
+    </a>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="/image-watermark-remover" class="text-sm text-[#4d4d4d] hover:text-[#171717] transition-colors">Image Remover</a>
+      <a href="/pricing" class="text-sm text-[#4d4d4d] hover:text-[#171717] transition-colors">Pricing</a>
+    </div>
+  </div>
+  <div class="flex items-center gap-3">
+    <a href="/login" class="text-sm font-medium text-[#4d4d4d] hover:text-[#171717] px-3 py-1.5 rounded-md transition-colors">Log In</a>
+    <a href="/signup" class="bg-[#171717] text-white text-sm font-medium px-4 py-1.5 rounded-full hover:bg-[#171717]/90 transition-all shadow-sm">Sign Up</a>
+  </div>
+</nav>

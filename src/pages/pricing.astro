@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Pricing | Real Watermark Remover">
+    <section class="py-24 bg-white">
+        <div class="max-w-[1400px] mx-auto px-6 text-center mb-24">
+            <h1 class="text-5xl md:text-6xl font-semibold tracking-tighter mb-6">Simple, transparent pricing.</h1>
+            <p class="text-xl text-[#4d4d4d]">Choose the plan that fits your volume. No hidden fees.</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Hobby -->
+            <div class="p-10 bg-white border border-[#ebebeb] rounded-2xl flex flex-col hover:shadow-lg transition-shadow">
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-2">Hobby</h3>
+                    <p class="text-sm text-[#888888]">Perfect for personal use.</p>
+                </div>
+                <div class="mb-8 tabular-nums">
+                    <span class="text-4xl font-bold">$0</span>
+                    <span class="text-[#888888]">/month</span>
+                </div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> 5 Images per Month</li>
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Standard Resolution</li>
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Community Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-full border border-[#ebebeb] font-medium hover:bg-[#fafafa] transition-colors">Start for Free</button>
+            </div>
+
+            <!-- Pro (Featured - Polarity Flipped) -->
+            <div class="p-10 bg-[#171717] text-white border border-[#171717] rounded-2xl flex flex-col shadow-2xl scale-105 z-10">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-lg font-semibold">Pro</h3>
+                        <span class="bg-[#333] text-[10px] uppercase tracking-widest font-bold px-2 py-0.5 rounded-full">Popular</span>
+                    </div>
+                    <p class="text-sm text-[#888888]">For professionals and creators.</p>
+                </div>
+                <div class="mb-8 tabular-nums">
+                    <span class="text-4xl font-bold">$19</span>
+                    <span class="text-[#888888]">/month</span>
+                </div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Unlimited Images</li>
+                    <li class="flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> 4K Resolution</li>
+                    <li class="flex items-center gap-3 text-sm"><svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Priority Processing</li>
+                </ul>
+                <button class="w-full py-3 rounded-full bg-white text-black font-medium hover:bg-gray-100 transition-colors">Go Pro</button>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="p-10 bg-white border border-[#ebebeb] rounded-2xl flex flex-col hover:shadow-lg transition-shadow">
+                <div class="mb-8">
+                    <h3 class="text-lg font-semibold mb-2">Enterprise</h3>
+                    <p class="text-sm text-[#888888]">For agencies and teams.</p>
+                </div>
+                <div class="mb-8 tabular-nums">
+                    <span class="text-4xl font-bold">Custom</span>
+                </div>
+                <ul class="space-y-4 mb-10 flex-grow">
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> API Access</li>
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Bulk Processing</li>
+                    <li class="flex items-center gap-3 text-sm text-[#4d4d4d]"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> 24/7 Support</li>
+                </ul>
+                <button class="w-full py-3 rounded-full border border-[#ebebeb] font-medium hover:bg-[#fafafa] transition-colors">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+</Layout>

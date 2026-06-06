@@ -11,7 +11,13 @@
     "preview": "astro preview",
     "astro": "astro"
   },
+  "devDependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.2",
+    "tailwindcss": "^4.3.0"
+  },
   "dependencies": {
-    "astro": "^6.4.2"
+    "@astrojs/node": "^10.1.3"
   }
 }
