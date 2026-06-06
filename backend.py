@@ -90,9 +90,9 @@ def web():
     web_app = FastAPI()
     web_app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-    @web_app.post("/api/proxy")
+    @web_app.post("/process")
     async def proxy_process(request: Request):
-        print("Received request at /api/proxy")
+        print("Received request at /process")
         try:
             form = await request.form()
             image_file = form.get("image_file")
