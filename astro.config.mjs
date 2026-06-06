@@ -7,3 +7,4 @@ export default defineConfig({
   adapter: vercel(),
   integrations: [tailwind()],
 });
+ 
